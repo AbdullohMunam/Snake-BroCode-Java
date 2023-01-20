@@ -15,11 +15,11 @@ public class GamePanel extends JPanel implements ActionListener{
 	static final int SCREEN_WIDTH = 600;
 	static final int SCREEN_HEIGHT = 600;
 	static final int UNIT_SIZE = 25;
-	static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT/UNIT_SIZE);
-	static final int DELAY = 75;
+	static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/(UNIT_SIZE*UNIT_SIZE);
+	static final int DELAY = 175;
 	final int x[] = new int[GAME_UNITS];
 	final int y[] = new int[GAME_UNITS];
-	int bodyParts = 6;
+	int bodyParts = 3;
 	int applesEaten;
 	int appleX;
 	int appleY;
@@ -42,14 +42,14 @@ public class GamePanel extends JPanel implements ActionListener{
 		timer = new Timer(DELAY, this);
 		timer.start();
 	}
-	public void pointComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		draw(g);
 	}
 	public void draw(Graphics g) {
 
 		if (running) {
-			for (int i = 0; i < SCREEN_HEIGHT; i++) {
+			for (int i = 0; i < SCREEN_HEIGHT/UNIT_SIZE; i++) {
 				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
 				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 			}
@@ -79,11 +79,11 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 	}
 	public void newApple() {
-		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE)*UNIT_SIZE);
-		appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE)*UNIT_SIZE);
+		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
+		appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
 	}
 	public void move() {
-		for (int i = bodyParts; i < 0; i--) {
+		for (int i = bodyParts; i > 0; i--) {
 			x[i] = x[i-1];
 			y[i] = y[i-1];
 		}
